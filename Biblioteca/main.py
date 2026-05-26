@@ -86,7 +86,18 @@ def main():
                         break
 
         
-
+        elif opcion == "3": #Prestar libro
+            miembro_encontrado = None
+            libro_encontrado = None
+            while True:
+                dni = input("Ingrese DNI del miembro: ")
+                for m in biblioteca.miembros:
+                    if m.dni == dni:
+                        miembro_encontrado = m
+                if miembro_encontrado:
+                    break
+                else:
+                    print("Ingrese un DNI valido")
                     
             while True:
                 titulo = input("Titulo del libro: ")

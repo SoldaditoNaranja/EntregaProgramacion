@@ -12,19 +12,21 @@ def main():
 
         if opcion == "1": #Agregar miembro
             while True:
-                nombre = input("Nombre del miebro: ")
+                nombre = input("Nombre: ")
                 if nombre == "":
                     print('El nombre no puede estar vacio')
+                elif not nombre.replace(" ", "").isalpha():
+                    print("El nombre solo debe contener letras")
                 else: 
                     break
             while True:
                 dni = input("Numero de Documento: ")
                 if dni == "":
                     print("El DNI no puede estar vacio")
-                elif len(dni) < 7 or len(dni) > 8:
-                    print("El DNI debe ser numerico entre 7 y 8 digitos.")
                 elif not dni.isdigit():
                     print('El DNI solo debe contener numeros')
+                elif len(dni) < 7 or len(dni) > 8:
+                    print("El DNI debe ser numerico entre 7 y 8 digitos.")
                 else: 
                     dni_existe = False
                     for m in biblioteca.miembros:
@@ -44,17 +46,28 @@ def main():
                 if titulo == "":
                     print('El titulo no es valido')
                 else:
-                    break
+                    # Validación del segundo código: evita duplicar títulos antes de avanzar
+                    libro_encontrado = biblioteca.buscar_libro(titulo)
+                    if libro_encontrado:
+                        print('El libro ya existe')
+                    else:
+                        break
             while True:
                 autor = input("Nombre del autor: ")
                 if autor == "":
                     print('El autor no es valido')
+                elif not autor.replace(" ", "").isalpha():
+                    print('El autor solo debe contener letras')
                 else:
                     break
             while True:
                 isbn = input("Isbn: ")
                 if isbn == "":
                     print('El isbn no es valido')
+                elif not isbn.isdigit():
+                    print('El ISBN solo debe contener numeros')
+                elif len(isbn) < 10 or len(isbn) > 13: # Ajustado a la regla real de 10 a 13 dígitos
+                    print('El ISBN debe contener entre 10 a 13 digitos')
                 else: 
                     isbn_existe = False
                     for l in biblioteca.libros:
@@ -84,7 +97,7 @@ def main():
                 titulo = input("Titulo del libro: ")
                 for l in biblioteca.libros:
                     if l.titulo.lower() == titulo.lower():
-                            libro_encontrado = l
+                        libro_encontrado = l
                 if libro_encontrado:
                     break
                 else:
@@ -103,17 +116,17 @@ def main():
                     break
                 else:
                     print("Ingrese DNI valido, miembro no encontrado")
-                while True:
-                    titulo = input("Titulo del nombre: ")
-                    for l in biblioteca.libros:
-                        if l.titulo == titulo:
-                            libro_encontrado = l
-                    if libro_encontrado:
-                        break
-                    else:
-                        print("Libro no encontrado")
-                    if miembro_encontrado and libro_encontrado:
-                        miembro_encontrado.devolver_libro(libro_encontrado)
+            while True:
+                titulo = input("Titulo del nombre: ")
+                for l in biblioteca.libros:
+                    if l.titulo.lower() == titulo.lower(): # Se añade .lower() para evitar errores de mayúsculas
+                        libro_encontrado = l
+                if libro_encontrado:
+                    break
+                else:
+                    print("Libro no encontrado")
+            if miembro_encontrado and libro_encontrado:
+                miembro_encontrado.devolver_libro(libro_encontrado)
 
         elif opcion == "5": #Consultar estado libro
             biblioteca.estado_libros()
@@ -123,6 +136,9 @@ def main():
 
         elif opcion == "0": #Salir
             break
+            
+        else:
+            print('Opcion inavalida')
 
 if __name__ == "__main__":
     main()

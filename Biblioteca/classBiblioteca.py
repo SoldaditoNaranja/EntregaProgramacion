@@ -34,3 +34,5 @@ class Biblioteca:
         for m in self.miembros:
             for l in m.libro_prestado:
                 print(f"{m.nombre} - Libros: {l.titulo}")
+            for l in m.libro_prestado:
+                print(f"{m.nombre} - Libros: {l.titulo}")

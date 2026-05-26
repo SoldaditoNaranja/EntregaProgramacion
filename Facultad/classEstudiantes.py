@@ -1,16 +1,11 @@
 class Estudiantes():
-    def __init__(self, nombre, apellido, nroMat, carrera): #registro de estudiantes
-        self.nombre = nombre
-        self.apellido = apellido
-        self.nroMat = nroMat
-        self.carrera = carrera
+    def __init__(self, nombre, apellido, nroMat, carrera): 
+        self.nombre = nombre.strip().title()
+        self.apellido = apellido.strip().title()
+        self.nroMat = nroMat.strip()
+        self.carrera = carrera.strip().title()
         self.inscriptosEn = []
 
-    def inscribirse(self):
-        print
-
-    def darseBaja(self):
-        print
-
-    def estadoEstCursos(self):
-        print
+    def darseBaja(self, curso):
+        if curso in self.inscriptosEn:
+            self.inscriptosEn.remove(curso)

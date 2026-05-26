@@ -144,7 +144,7 @@ def main():
             biblioteca.estado_miembros()
 
     
-        elif opcion == "7": #Salir
+        elif opcion == "0": #Salir
             print('Saliendo')
             break
 

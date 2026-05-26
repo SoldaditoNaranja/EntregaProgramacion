@@ -8,18 +8,17 @@ def main():
 
     while True:
         mostrar_menu()
-        opcion = input("\nIngrese la opcion deseada: ")
-
+        opcion = input("\nMarque la opcion que desea usar: ")
 
         if opcion == "1": #Agregar miembro
             while True:
-                nombre = input("Nombre: ")
+                nombre = input("Nombre del miebro: ")
                 if nombre == "":
                     print('El nombre no puede estar vacio')
                 else: 
                     break
             while True:
-                dni = input("Dni: ")
+                dni = input("Numero de Documento: ")
                 if dni == "":
                     print("El DNI no puede estar vacio")
                 elif len(dni) < 7 or len(dni) > 8:
@@ -39,24 +38,23 @@ def main():
                         print('Miembro agregado correctamente.')
                         break
 
-
         elif opcion == "2": #Agregar libro
             while True:
-                titulo = input("Titulo: ")
+                titulo = input("Titulo del libro: ")
                 if titulo == "":
-                    print('El titulo no puede estar vacio')
+                    print('El titulo no es valido')
                 else:
                     break
             while True:
-                autor = input("Autor: ")
+                autor = input("Nombre del autor: ")
                 if autor == "":
-                    print('El autor no puede estar vacio')
+                    print('El autor no es valido')
                 else:
                     break
             while True:
                 isbn = input("Isbn: ")
                 if isbn == "":
-                    print('El isbn no puede estar vacio')
+                    print('El isbn no es valido')
                 else: 
                     isbn_existe = False
                     for l in biblioteca.libros:
@@ -67,9 +65,8 @@ def main():
                     else:
                         libro = Libro(titulo, autor, isbn)
                         biblioteca.agregar_libros(libro)
-                        print('Libro agregado correctamente.')
+                        print('Libro agregado con exito.')
                         break
-
 
         elif opcion == "3": #Prestar libro
             miembro_encontrado = None
@@ -93,7 +90,6 @@ def main():
                 else:
                     print("Libro no encontrado")
             miembro_encontrado.tomar_libro(libro_encontrado)
-
 
         elif opcion == "4": #Devolver libro
             miembro_encontrado = None
@@ -122,12 +118,13 @@ def main():
         elif opcion == "5": #Consultar estado libro
             biblioteca.estado_libros()
 
-
         elif opcion == "6": #Consultar estado miembro
             biblioteca.estado_miembros()
 
         elif opcion == "0": #Salir
             break
 
+if __name__ == "__main__":
+    main()
 if __name__ == "__main__":
     main()

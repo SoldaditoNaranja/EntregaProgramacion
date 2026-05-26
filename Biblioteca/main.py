@@ -4,142 +4,228 @@ from classBiblioteca import Biblioteca
 from menu import mostrar_menu
 
 def main():
+
     biblioteca = Biblioteca()
 
     while True:
+
         mostrar_menu()
-        opcion = input("\nMarque la opcion que desea usar: ")
+
+        opcion = input("\nIngrese la opcion deseada: ")
 
         if opcion == "1": #Agregar miembro
+
             while True:
+
                 nombre = input("Nombre: ")
+
                 if nombre == "":
                     print('El nombre no puede estar vacio')
+
                 elif not nombre.replace(" ", "").isalpha():
                     print("El nombre solo debe contener letras")
-                else: 
+
+                else:
                     break
+
             while True:
-                dni = input("Numero de Documento: ")
+
+                dni = input("Dni: ")
+
                 if dni == "":
                     print("El DNI no puede estar vacio")
-                elif not dni.isdigit():
-                    print('El DNI solo debe contener numeros')
+
                 elif len(dni) < 7 or len(dni) > 8:
                     print("El DNI debe ser numerico entre 7 y 8 digitos.")
-                else: 
+
+                elif not dni.isdigit():
+                    print('El DNI solo debe contener numeros')
+
+                else:
+
                     dni_existe = False
+
                     for m in biblioteca.miembros:
+
                         if m.dni == dni:
                             dni_existe = True
-                    if dni_existe: 
+
+                    if dni_existe:
                         print('El DNI ingresado ya existe')
+
                     else:
+
                         miembro = Miembro(nombre, dni)
+
                         biblioteca.agregar_miembro(miembro)
+
                         print('Miembro agregado correctamente.')
+
                         break
 
         elif opcion == "2": #Agregar libro
+
             while True:
-                titulo = input("Titulo del libro: ")
+
+                titulo = input("Titulo: ")
+
                 if titulo == "":
-                    print('El titulo no es valido')
+                    print('El titulo no puede estar vacio')
+
                 else:
-                    # Validación del segundo código: evita duplicar títulos antes de avanzar
-                    libro_encontrado = biblioteca.buscar_libro(titulo)
-                    if libro_encontrado:
+
+                    libro_existe = False
+
+                    for l in biblioteca.libros:
+
+                        if l.titulo.lower() == titulo.lower():
+                            libro_existe = True
+
+                    if libro_existe:
                         print('El libro ya existe')
+
                     else:
                         break
+
             while True:
-                autor = input("Nombre del autor: ")
+
+                autor = input("Autor: ")
+
                 if autor == "":
-                    print('El autor no es valido')
+                    print('El autor no puede estar vacio')
+
                 elif not autor.replace(" ", "").isalpha():
                     print('El autor solo debe contener letras')
+
                 else:
                     break
+
             while True:
+
                 isbn = input("Isbn: ")
+
                 if isbn == "":
-                    print('El isbn no es valido')
+                    print('El isbn no puede estar vacio')
+
                 elif not isbn.isdigit():
                     print('El ISBN solo debe contener numeros')
-                elif len(isbn) < 10 or len(isbn) > 13: # Ajustado a la regla real de 10 a 13 dígitos
+
+                elif len(isbn) < 9 or len(isbn) > 14:
                     print('El ISBN debe contener entre 10 a 13 digitos')
-                else: 
+
+                else:
+
                     isbn_existe = False
+
                     for l in biblioteca.libros:
+
                         if l.isbn == isbn:
                             isbn_existe = True
+
                     if isbn_existe:
                         print('El ISBN ingresado ya existe')
+
                     else:
+
                         libro = Libro(titulo, autor, isbn)
+
                         biblioteca.agregar_libros(libro)
-                        print('Libro agregado con exito.')
+
+                        print('Libro agregado correctamente.')
+
                         break
 
         elif opcion == "3": #Prestar libro
+
             miembro_encontrado = None
             libro_encontrado = None
-            while True: 
+
+            while True:
+
                 dni = input("Ingrese DNI del miembro: ")
+
                 for m in biblioteca.miembros:
+
                     if m.dni == dni:
                         miembro_encontrado = m
+
                 if miembro_encontrado:
                     break
+
                 else:
-                    print("Ingrese DNI valido, miembro no encontrado")
+                    print("Ingrese un DNI valido")
+
             while True:
+
                 titulo = input("Titulo del libro: ")
+
                 for l in biblioteca.libros:
+
                     if l.titulo.lower() == titulo.lower():
                         libro_encontrado = l
+
                 if libro_encontrado:
                     break
+
                 else:
                     print("Libro no encontrado")
+
             miembro_encontrado.tomar_libro(libro_encontrado)
 
         elif opcion == "4": #Devolver libro
+
             miembro_encontrado = None
             libro_encontrado = None
+
             while True:
-                dni = input("Ingrese DNI del miembro: ")
+
+                dni = input('Ingrese DNI del miembro: ')
+
                 for m in biblioteca.miembros:
+
                     if m.dni == dni:
                         miembro_encontrado = m
+
                 if miembro_encontrado:
                     break
+
                 else:
-                    print("Ingrese DNI valido, miembro no encontrado")
+                    print("Ingrese un DNI válido")
+
             while True:
-                titulo = input("Titulo del nombre: ")
+
+                titulo = input("Titulo del libro: ")
+
                 for l in biblioteca.libros:
-                    if l.titulo.lower() == titulo.lower(): # Se añade .lower() para evitar errores de mayúsculas
+
+                    if l.titulo.lower() == titulo.lower():
                         libro_encontrado = l
+
                 if libro_encontrado:
                     break
+
                 else:
                     print("Libro no encontrado")
-            if miembro_encontrado and libro_encontrado:
-                miembro_encontrado.devolver_libro(libro_encontrado)
+
+            miembro_encontrado.devolver_libro(libro_encontrado)
 
         elif opcion == "5": #Consultar estado libro
+
             biblioteca.estado_libros()
 
         elif opcion == "6": #Consultar estado miembro
+
             biblioteca.estado_miembros()
 
-        elif opcion == "0": #Salir
+        elif opcion == "7": #Salir
+
+            print('Saliendo del sistema...')
+
             break
-            
+
         else:
-            print('Opcion inavalida')
+
+            print('Opcion invalida, ingrese un numero del 1 al 7')
 
 if __name__ == "__main__":
     main()
-

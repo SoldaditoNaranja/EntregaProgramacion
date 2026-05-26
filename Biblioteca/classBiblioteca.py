@@ -9,18 +9,6 @@ class Biblioteca:
     def agregar_miembro(self, miembro):
         self.miembros.append(miembro)
 
-    def buscar_miembro(self, dni):
-        for m in self.miembros:
-            if m.dni == dni:
-                return m
-        return None
-
-    def buscar_libro(self, titulo):
-        for l in self.libros:
-            if l.titulo == titulo:
-                return l
-        return None
-
     def estado_libros(self):
         print("Estado de libros: ")
         for libro in self.libros:
@@ -32,7 +20,5 @@ class Biblioteca:
     def estado_miembros(self):
         print("Estado de miembros")
         for m in self.miembros:
-            for l in m.libro_prestado:
-                print(f"{m.nombre} - Libros: {l.titulo}")
             for l in m.libro_prestado:
                 print(f"{m.nombre} - Libros: {l.titulo}")

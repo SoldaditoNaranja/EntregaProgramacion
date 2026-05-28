@@ -116,10 +116,13 @@ def main():
             estudiante = facultad.buscar_estudiante()
             curso = facultad.buscar_curso("Ingrese el código del curso al que desea inscribirlo: ")
 
+            if estudiante in curso.estudiantesInscriptos:
+                print(f"¡Ojo! El estudiante {estudiante.nombre} ya se encuentra inscripto en el curso {curso.nomCurso}.")
+                continue
+
             curso.agregarEst(estudiante)
             if estudiante in curso.estudiantesInscriptos:
                 estudiante.inscriptosEn.append(curso)
-
         elif opcion == "4": # Darse de baja de un curso
             if not facultad.estudiantes or not facultad.cursos:
                 print("No se pueden realizar bajas porque faltan registrar estudiantes o cursos.")

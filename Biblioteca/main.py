@@ -150,7 +150,7 @@ def main():
 
         
         else:
-            print('Ingrese unicamente un numero del 1 al 7')
+            print('Ingrese unicamente un numero del 0 al 6')
 
 if __name__ == "__main__":
     main()
